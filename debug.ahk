@@ -61,43 +61,15 @@ CreateGUIElements()
 
 
 LoadSettings()
-; UpdateJSONfromUI()
 UpdateUIFromJson()
-; UpdateJSONfromUI()
 
-
-
-
-; SaveGUI()
-; UpdateUIFromJson()
 RefreshOSI()
-
-
-; SaveSettings()
-; LoadSettings()
-; Update()
 setUpHotkeys()
-
-
-;================================================================
-;                           updateloop		 
-;================================================================
-
-global TargetRefreshRate := 30            
-global TargetTimeBetweenFrames := 1 / TargetRefreshRate
-
-; global tempTime := GetUnixTime()
-; global deltaTime := 0.03			;this is to not fuck up the first delta time
-
-; global LastFrameTime := A_TickCount - 1000	; sets the first dtime to 1000
-; SetTimer, UpdateImages, 50  ; Update every 100 milliseconds
 
 
 ;================================================================
 ;                           Functions			 
 ;================================================================
-
-
 
 ; Goes through the elements and draws save button
 CreateGUIElements(){
@@ -119,7 +91,6 @@ CreateGUIElements(){
 	Gui, Show,, Window Name
 }
 
-
 DrawImage(_name, _imageLocation, _position, _Display := False){
 	tempwidthx := 64
 	tempwidthy := 64
@@ -139,6 +110,7 @@ DrawImage(_name, _imageLocation, _position, _Display := False){
 		GuiControl, 2:Hide, %id%
 	}
 }
+
 GUIImage(_subcommand, _pos, _size, _ID, _imageLocation){
 	global
 	Gui, %_subcommand%, Picture, %_pos% %_size% v%_ID%, % _imageLocation
@@ -195,9 +167,6 @@ DrawSkillElement(_index, _element){
 }
 
 
-
-
-
 ;================================================================
 ; Writes the value of the JSON to the Settings.ini file
 SaveSettings(){
@@ -214,7 +183,7 @@ SaveSettings(){
 }
 
 ;================================================================
-; reads the ini file and outputs it to the internal Json object
+; reads the .ini file and outputs it to the internal Json object
 LoadSettings(){
 	path := ""
 	path = %A_WorkingDir%\settings.ini
@@ -249,21 +218,21 @@ LoadSettings(){
 
 ;================================================================
 ; Updates the JSON with values UI
-UpdateJSON2(){
-		For key, skill in ListOfSkills{
-		elementSuffix := "_Element" A_Index
-		loop, %guiElementsCount% {
-			elementType := guiElements[A_Index]
-			element := guiElements[A_Index] elementSuffix
-			; tmeme := skill[elementType]
-			; t2meme := %element%
-			skill[elementType] := %element%
-		}
-	}
-}
+; UpdateJSON2(){
+; 		For key, skill in ListOfSkills{
+; 		elementSuffix := "_Element" A_Index
+; 		loop, %guiElementsCount% {
+; 			elementType := guiElements[A_Index]
+; 			element := guiElements[A_Index] elementSuffix
+; 			; tmeme := skill[elementType]
+; 			; t2meme := %element%
+; 			skill[elementType] := %element%
+; 		}
+; 	}
+; }
 
 ;================================================================
-;;update the JSON objects with values from the GUI2
+;;update the internal Json object with values from the UI
 UpdateJSONfromUI(){
 	For key, skill in ListOfSkills{
 		elementSuffix := "_Element" A_Index
@@ -282,7 +251,7 @@ UpdateJSONfromUI(){
 	; Gui, 2:Show, w1920 h1080 NA ;, onScreenIcons
 }
 ;================================================================
-;;update the JSON objects with values from the GUI2
+;;update the UI fields from the internal object
 UpdateUIFromJson(){
 	For key, skill in ListOfSkills{
 		elementSuffix := "_Element" A_Index
@@ -296,18 +265,19 @@ UpdateUIFromJson(){
 		}
 	}
 }
-OLD_UpdateUIFromJson(){
-	;;referesh the GUI with uptadated variables
-	For key, skill in ListOfSkills{
-		elementSuffix := "_Element" A_Index
-		loop, %fieldsToSaveCount% {
-			elementType := fieldsToSave[A_Index]
-			element := elementType elementSuffix
-			GuiControl,, %element%, %element% 
-		}
-		; GuiControl,, %tempvar%, "x"mousex "y"mousey
-	}
-}
+; OLD_UpdateUIFromJson(){
+; 	;;referesh the GUI with uptadated variables
+; 	For key, skill in ListOfSkills{
+; 		elementSuffix := "_Element" A_Index
+; 		loop, %fieldsToSaveCount% {
+; 			elementType := fieldsToSave[A_Index]
+; 			element := elementType elementSuffix
+; 			GuiControl,, %element%, %element% 
+; 		}
+; 		; GuiControl,, %tempvar%, "x"mousex "y"mousey
+; 	}
+; }
+
 RefreshOSI(){
 	;;referesh the OnScreenImages with updated locations
 	For key, skill in ListOfSkills{
@@ -322,14 +292,10 @@ RefreshOSI(){
 	}
 }
 
-
+;not used yet?
 UpdateOnScreenIMG(){
 
 }
-
-; UpdateGUIVars(){
-; 	UpdateUIFromJson()
-; }
 
 ;================================================================
 
@@ -360,19 +326,8 @@ setUpHotkeys(){
 			count++
 			argument := ""
 			argument := count	
-			; For index, skill in ListOfSkills{
-			; 	If (key == skill.key){
-			; 		argument := count
-			; 	}
-			; }
-
-			; fn := Func("RenderImage").Bind(argument)
-
 
 			FuncText := "RenderImage" count
-			; MyFunc := (*) => %FuncText%()
-			; MyFunc := () => %FuncText%()
-
 			functionVariable := Func(FuncText).Bind(argument)
 
 			hKey := "~"key
@@ -460,68 +415,12 @@ return
 
 
 
-;	A_TickCount is essencialy Utime and is the time since program on time
-;	taking the difference between n and n+1 we get the time since last frame
-;	which we can use to update time sensitive things such as timers
-; UpdateImages(){
-; 	if(toggleAppliction){
-; 		timeSinceLastFrame := A_TickCount - LastFrameTime
-; 		For key, skill in ListOfSkills{
-; 			; ToolTip, %temp%
-; 			skill.lastUTime := A_TickCount	
-; 		}
-
-; 		; GuiControl,8:,Prog%i%,%pp%
-; 	}
-; }
-
-
-
-;================================================================
-
-; HotkeyListCheck(_conditional) {
-;     if(_conditional == "a"){
-;         return true
-;     }
-; }
- 
 
 
 ;================================================================
 
 InitiliseUTimes(){
 
-}
-; UPDATE LOOP
-Update(){
-
-
-
-	; UpdateDeltaTime() 
-
-	; UpdateOSI(){
-	; 	; FOR ELEMENT IN LIST{
-	; 	; 	IF( REMAINING TIME IS LESS THAN 0)
-	; 	; 		HIDE IMAGE
-	; 	; 	ELSE{ 
-	; 	; 		UPDATE ELEMENT BY DELTA TIME
-	; 	; 	}
-	; 	; }
-	; }
-
-
-
-
-	; For key, skill in ListOfSkills{
-	; 	loop, fieldsToSaveCount {
-	; 		temp := fieldsToSave[A_Index] skill.title
-	
-	; 	}
-	; }
-    ;                            ;The update loop for the program
-                
-
-    ; WaitFunction()
 }
 
 saveProgram:
@@ -546,13 +445,6 @@ F6::
 	LoadSettings()
 }
 
-UpdateGUICall(){
-	; itterate throght the skills of the program
-	; For Key , Value in ListOfSkills
-		
-
-
-}
 
 ;================================================================
 
@@ -570,7 +462,7 @@ IndexSkills(){
 }
 ;================================================================
 
-ObjFullyClone(obj)	; This ain't my code partner *yehaw*
+ObjFullyClone(obj)
 {
 	nobj := obj.Clone()
 	for k,v in nobj
@@ -586,8 +478,6 @@ FontHandler(_keyword){
 		Gui, Font, s11 ; Title
 	Case "button":
 		Gui, Font, s7 ; Title
-
-
 
 	Default:
 		Gui, Font
@@ -634,22 +524,3 @@ updatePositions(_positions, _vector2D){
 		possy.y += _vector2D.y
 	}
 }
-;================================================================
-
-;================================================================
-
-
-;================================================================
-
-
-;================================================================
-
-
-;================================================================
-
-
-;================================================================
-
-
-;================================================================
-
