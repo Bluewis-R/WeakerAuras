@@ -48,9 +48,14 @@ global fieldsToSaveCount := fieldsToSave.Count()
 global guiElements := ["durationTextbox", "enableText", "keyText", "key", "checkbox", "xposText", "xposbox", "yposText", "yposbox"]
 global guiElementsCount := guiElements.Count()
 
-ListOfSkills[1] := { title : "Elemental Weakness", durationtextbox : "10.0",  key : "space", Checkbox : true, xposbox : "1000", yposbox : "900", imageSize : {x:64, y:64}, icon : "Elemental_Weakness_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:0}, TimeAtLastHotkeyPress : 0, index : 0 } 
-ListOfSkills[2] := { title : "Enduring", durationtextbox : "8.0",  key : "e", Checkbox : true, xposbox : "1100", yposbox : "900", imageSize : {x:64, y:64}, icon : "Enduring_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:70}, TimeAtLastHotkeyPress : 0, index : 0 }
-ListOfSkills[3] := { title : "Hatred", durationtextbox : "10.0",  key : "r", Checkbox : true, xposbox : "1200", yposbox : "900", imageSize : {x:64, y:64}, icon : "Hatred_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:140}, TimeAtLastHotkeyPress : 0, index : 0 } 
+ListOfSkills[1] := { title : "Enduring", durationtextbox : "10.0",  key : "q", Checkbox : true, xposbox : "1000", yposbox : "900", imageSize : {x:64, y:64}, icon : "Enduring_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:0}, TimeAtLastHotkeyPress : 0, index : 0 } 
+ListOfSkills[2] := { title : "Intimidating", durationtextbox : "10.0",  key : "w", Checkbox : true, xposbox : "1100", yposbox : "900", imageSize : {x:64, y:64}, icon : "Intimidating_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:70}, TimeAtLastHotkeyPress : 0, index : 0 }
+ListOfSkills[3] := { title : "BattleMage", durationtextbox : "10.0",  key : "e", Checkbox : true, xposbox : "1200", yposbox : "900", imageSize : {x:64, y:64}, icon : "Battlemage's_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:140}, TimeAtLastHotkeyPress : 0, index : 0 } 
+ListOfSkills[4] := { title : "Rallying", durationtextbox : "10.0",  key : "r", Checkbox : true, xposbox : "1300", yposbox : "900", imageSize : {x:64, y:64}, icon : "Rallying_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:210}, TimeAtLastHotkeyPress : 0, index : 0 } 
+ListOfSkills[5] := { title : "Seismic", durationtextbox : "10.0",  key : "t", Checkbox : true, xposbox : "1400", yposbox : "900", imageSize : {x:64, y:64}, icon : "Seismic_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:280}, TimeAtLastHotkeyPress : 0, index : 0 }
+ListOfSkills[6] := { title : "Ancestral", durationtextbox : "10.0",  key : "space", Checkbox : true, xposbox : "1500", yposbox : "900", imageSize : {x:64, y:64}, icon : "Ancestral_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:350}, TimeAtLastHotkeyPress : 0, index : 0 } 
+
+
 IndexSkills()
 
 global skillTemplatePosition := { iconPosition: {x:0, y:0, w:64, h:64}, title: {x:75, y:0, w:90, h:20}, timerText: {x:75, y:2, w:90, h:20}, durationTextbox: {x:110, y:2, w:90, h:20}, keyText: {x:74, y:26, w:90, h:20}, key: {x:110, y:24, w:40, h:20}, enableText: {x:74, y:45, w:50, h:20}, checkbox: {x:160, y:43, w:20, h:20}, xposText: {x:204, y:20, w:40, h:20}, xposbox: {x:234, y:20, w:40, h:20}, yposText: {x:204, y:45, w:40, h:20}, yposbox: {x:234, y:45, w:40, h:20}, posButton: {x:284, y:20, w:60, h:20}, onScreenImage: {x:0, y:0}}
@@ -65,6 +70,7 @@ UpdateUIFromJson()
 
 RefreshOSI()
 setUpHotkeys()
+
 
 
 ;================================================================
@@ -88,7 +94,7 @@ CreateGUIElements(){
 	; Save button
 	pos := "x234 y"(ListOfSkills.Count()*70)
 	Gui, Add, Button, %pos% vsaveButton gsaveProgram , Save
-	Gui, Show,, Window Name
+	Gui, Show,, WeakerAuras
 }
 
 DrawImage(_name, _imageLocation, _position, _Display := False){
@@ -319,6 +325,7 @@ setUpHotkeys(){
 	; for index in ListOfHotkeyKeys{
 
 	; If I dont look at the count it doen't exist :3
+	; error here, needs to construct anaray in the same order as data object
 	count := 0
     For k, key in listOfKeyboardKeys
     {   
@@ -349,6 +356,18 @@ RenderImage4(_arg){
 	Control(_arg)
 }
 RenderImage5(_arg){
+	Control(_arg)
+}
+RenderImage6(_arg){
+	Control(_arg)
+}
+RenderImage7(_arg){
+	Control(_arg)
+}
+RenderImage8(_arg){
+	Control(_arg)
+}
+RenderImage9(_arg){
 	Control(_arg)
 }
 
