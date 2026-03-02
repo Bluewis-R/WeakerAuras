@@ -327,9 +327,9 @@ setUpHotkeys(){
 	; If I dont look at the count it doen't exist :3
 	; error here, needs to construct anaray in the same order as data object
 	count := 0
-    For k, key in listOfKeyboardKeys
+    For k, key in ListOfHotkeyKeys
     {   
-		if(IsElementInArray(key, ListOfHotkeyKeys) == true){
+		if(IsElementInArray(key[1], listOfKeyboardKeys) == true){
 			count++
 			argument := ""
 			argument := count	
@@ -337,7 +337,7 @@ setUpHotkeys(){
 			FuncText := "RenderImage" count
 			functionVariable := Func(FuncText).Bind(argument)
 
-			hKey := "~"key
+			hKey := "~"key[1]
 			HotKey % hKey, % functionVariable
 		}
     }
@@ -506,7 +506,7 @@ FontHandler(_keyword){
 
 IsElementInArray(_element, _array){
 	for i, ab in _array{
-		if(ab[1] == _element){
+		if(ab == _element){
 			return true
 		}
 	}
