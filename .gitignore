@@ -1,0 +1,5 @@
+.vscode/launch.json
+.vs/VSWorkspaceState.json
+.vs/ProjectSettings.json
+*.rar
+/release
