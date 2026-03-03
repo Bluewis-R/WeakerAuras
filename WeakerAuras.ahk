@@ -34,7 +34,7 @@ global GUIcolorBG := "ffffff"
 ; whitecolour := 762e1c
 
 global toggleAppliction := false
-**global listOfKeyboardKeys := ["space", "`", "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/" ]
+global listOfKeyboardKeys := ["space", "`", "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/" ]
 
 
 global mousex, mousey
@@ -49,6 +49,7 @@ global guiElementsCount := guiElements.Count()
 ; ListOfSkills[1] := { title : "Enduring", durationtextbox : "10.0",  key : "q", Checkbox : true, xposbox : "1000", yposbox : "900", imageSize : {x:64, y:64}, icon : "Enduring_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:0}, TimeAtLastHotkeyPress : 0, index : 0 } 
 
 global defaultSkill := { title : "Enduring", durationtextbox : "10.0",  key : "q", Checkbox : true, xposbox : "1000", yposbox : "900", imageSize : {x:64, y:64}, icon : "Enduring_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:0}, TimeAtLastHotkeyPress : 0, index : 0 } 
+
 
 global skillTemplatePosition := { iconPosition: {x:0, y:0, w:64, h:64}, title: {x:75, y:0, w:90, h:20}, timerText: {x:75, y:2, w:90, h:20}, durationTextbox: {x:110, y:2, w:90, h:20}, keyText: {x:74, y:26, w:90, h:20}, key: {x:110, y:24, w:40, h:20}, enableText: {x:74, y:45, w:50, h:20}, checkbox: {x:160, y:43, w:20, h:20}, xposText: {x:204, y:20, w:40, h:20}, xposbox: {x:234, y:20, w:40, h:20}, yposText: {x:204, y:45, w:40, h:20}, yposbox: {x:234, y:45, w:40, h:20}, posButton: {x:284, y:20, w:60, h:20}, onScreenImage: {x:0, y:0}}
 
@@ -190,8 +191,10 @@ LoadSettings(){
 	bb := % FileExist(path)
 	if(FileExist(path) = ""){
 		; Cretaesa Default Settings
-		UpdateUIFromJson()
-		SaveSettings()
+		FileCopy .\settings_default.ini, .\settings.ini
+		; UpdateUIFromJson()
+		; SaveSettings()
+		LoadSettings()
 	}else{
 
 		output := ""
