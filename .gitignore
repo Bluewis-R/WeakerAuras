@@ -3,3 +3,4 @@
 .vs/ProjectSettings.json
 *.rar
 /release
+.settings_backup.ini
