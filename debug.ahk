@@ -43,18 +43,17 @@ global mousex, mousey
 MouseGetPos, mousex, mousey
 ;============================Data============================
 global ListOfSkills := {}
-global fieldsToSave := ["durationTextbox", "key", "checkbox", "xposbox", "yposbox"]
+global fieldsToSave := ["icon", "durationTextbox", "key", "checkbox", "xposbox", "yposbox"]
 global fieldsToSaveCount := fieldsToSave.Count()
 global guiElements := ["durationTextbox", "enableText", "keyText", "key", "checkbox", "xposText", "xposbox", "yposText", "yposbox"]
 global guiElementsCount := guiElements.Count()
 
-ListOfSkills[1] := { title : "Enduring", durationtextbox : "10.0",  key : "q", Checkbox : true, xposbox : "1000", yposbox : "900", imageSize : {x:64, y:64}, icon : "Enduring_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:0}, TimeAtLastHotkeyPress : 0, index : 0 } 
-ListOfSkills[2] := { title : "Intimidating", durationtextbox : "10.0",  key : "w", Checkbox : true, xposbox : "1100", yposbox : "900", imageSize : {x:64, y:64}, icon : "Intimidating_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:70}, TimeAtLastHotkeyPress : 0, index : 0 }
-ListOfSkills[3] := { title : "BattleMage", durationtextbox : "10.0",  key : "e", Checkbox : true, xposbox : "1200", yposbox : "900", imageSize : {x:64, y:64}, icon : "Battlemage's_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:140}, TimeAtLastHotkeyPress : 0, index : 0 } 
-ListOfSkills[4] := { title : "Rallying", durationtextbox : "10.0",  key : "r", Checkbox : true, xposbox : "1300", yposbox : "900", imageSize : {x:64, y:64}, icon : "Rallying_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:210}, TimeAtLastHotkeyPress : 0, index : 0 } 
-ListOfSkills[5] := { title : "Seismic", durationtextbox : "10.0",  key : "t", Checkbox : true, xposbox : "1400", yposbox : "900", imageSize : {x:64, y:64}, icon : "Seismic_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:280}, TimeAtLastHotkeyPress : 0, index : 0 }
-ListOfSkills[6] := { title : "Ancestral", durationtextbox : "10.0",  key : "space", Checkbox : true, xposbox : "1500", yposbox : "900", imageSize : {x:64, y:64}, icon : "Ancestral_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:350}, TimeAtLastHotkeyPress : 0, index : 0 } 
+; ListOfSkills[1] := { title : "Enduring", durationtextbox : "10.0",  key : "q", Checkbox : true, xposbox : "1000", yposbox : "900", imageSize : {x:64, y:64}, icon : "Enduring_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:0}, TimeAtLastHotkeyPress : 0, index : 0 } 
+; ListOfSkills[2] := { title : "Enduring", durationtextbox : "10.0",  key : "q", Checkbox : true, xposbox : "1000", yposbox : "900", imageSize : {x:64, y:64}, icon : "Enduring_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:0}, TimeAtLastHotkeyPress : 0, index : 0 } 
 
+global defaultSkill := { title : "Enduring", durationtextbox : "10.0",  key : "q", Checkbox : true, xposbox : "1000", yposbox : "900", imageSize : {x:64, y:64}, icon : "Enduring_Cry_skill_icon.png", durationdescription : "durationdescription",  enable : false,  elementOffset : {x:0, y:0}, TimeAtLastHotkeyPress : 0, index : 0 } 
+
+LoadSettings()
 
 IndexSkills()
 
@@ -65,7 +64,6 @@ InitiliseUTimes()
 CreateGUIElements()
 
 
-LoadSettings()
 UpdateUIFromJson()
 
 RefreshOSI()
@@ -210,6 +208,10 @@ LoadSettings(){
 			elementSuffix := "_Element" A_Index
 			section := sections[index]
 			; title := ListOfSkills[section].title
+
+			
+			; tempLoadObject := ObjFullyClone(defaultSkill)
+			ListOfSkills[index] := ObjFullyClone(defaultSkill)
 			
 			loop, %fieldsToSaveCount% {
 				elementType := fieldsToSave[A_Index]
@@ -218,7 +220,19 @@ LoadSettings(){
 				IniRead, result, .\settings.ini, %section%, %elementType%
 				ListOfSkills[index][elementType] := result
 			}
+			; element offset
+			ListOfSkills[index]["elementOffset"].y := 70*(index-1)
+
+	
+
+
+
+			; ListOfSkills.Push(testarray)
+			OutputDebug, test
 		}
+
+
+		OutputDebug, test
 	}
 }
 
