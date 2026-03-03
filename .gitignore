@@ -2,5 +2,4 @@
 .vs/VSWorkspaceState.json
 .vs/ProjectSettings.json
 *.rar
-/release
-.settings_backup.ini
+settings_backup.ini
