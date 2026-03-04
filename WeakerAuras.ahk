@@ -264,10 +264,6 @@ UpdateJSONfromUI(){
 ;================================================================
 ;;update the UI fields from the internal object
 UpdateUIFromJson(){
-	; result_img_location := ""  
-	; result_img_location = %A_WorkingDir%\resources\%_imageLocation%
-
-
 	For key, skill in ListOfSkills{
 		elementSuffix := "_Element" A_Index
 		loop, %fieldsToUpdateCount% {
@@ -281,18 +277,6 @@ UpdateUIFromJson(){
 		}
 	}
 }
-; OLD_UpdateUIFromJson(){
-; 	;;referesh the GUI with uptadated variables
-; 	For key, skill in ListOfSkills{
-; 		elementSuffix := "_Element" A_Index
-; 		loop, %fieldsToSaveCount% {
-; 			elementType := fieldsToSave[A_Index]
-; 			element := elementType elementSuffix
-; 			GuiControl,, %element%, %element% 
-; 		}
-; 		; GuiControl,, %tempvar%, "x"mousex "y"mousey
-; 	}
-; }
 
 RefreshOSI(){
 	;;referesh the OnScreenImages with updated locations
@@ -441,9 +425,6 @@ return
 Timer9:
 	TimerFunction(ListOfSkills[9])
 return
-
-
-
 
 
 ;================================================================
