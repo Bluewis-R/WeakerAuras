@@ -88,6 +88,8 @@ CreateGUIElements(){
 		; skill.elementOffset += offset
 		DrawSkillElement(A_Index, theSkill)	
 	}
+	; todo add "add" and "remove" buttons
+
 	; Save button
 	pos := "x234 y"(ListOfSkills.Count()*70)
 	Gui, Add, Button, %pos% vsaveButton gsaveProgram , Save
@@ -175,9 +177,9 @@ DrawSkillElement(_index, _element){
 SaveSettings(){
 	For key, skill in ListOfSkills{
 		elementSuffix := "_Element" A_Index
-		loop, %fieldsToSaveCount% {
-			elementType := fieldsToSave[A_Index]
-			element := fieldsToSave[A_Index] elementSuffix
+		loop, %fieldsToUpdateCount% {
+			elementType := fieldsToUpdate[A_Index]
+			element := fieldsToUpdate[A_Index] elementSuffix
 			elementContents := %element%
 			IniWrite, %elementContents%, .\settings.ini, %key%, %elementType%
 		}
@@ -211,8 +213,10 @@ LoadSettings(){
 
 			
 			; tempLoadObject := ObjFullyClone(defaultSkill)
+
 			ListOfSkills[index] := ObjFullyClone(defaultSkill)
-			
+			ListOfSkills[index]["index"] := index 
+
 			loop, %fieldsToSaveCount% {
 				elementType := fieldsToSave[A_Index]
 				element := fieldsToSave[A_Index] elementSuffix
@@ -266,16 +270,25 @@ UpdateJSONfromUI(){
 UpdateUIFromJson(){
 	For key, skill in ListOfSkills{
 		elementSuffix := "_Element" A_Index
+		
 		loop, %fieldsToUpdateCount% {
 			elementType := fieldsToUpdate[A_Index]
 			element := elementType elementSuffix
-			%element% := JSONdata
-			
 			JSONdata := skill[elementType]
-
+			%element% := JSONdata
 			GuiControl,, %element%, %JSONdata% 
 		}
+		; this is for the icon, its kinda fucked
+		skillFilename := skill.icon
+		tempLocation = %A_WorkingDir%\resources\%skillFilename%
+		element := "icon" elementSuffix
+		GuiControl,, %element%, %tempLocation%
+		element := "iconOSI" elementSuffix
+		GuiControl, 2:, %element%, %tempLocation%
 	}
+}
+
+refreshIcon(){
 }
 
 RefreshOSI(){
@@ -437,8 +450,11 @@ saveProgram:
 	UpdateJSONfromUI()
 	SaveSettings()
 	UpdateUIFromJson()
+	; setUpHotkeys()
+	; RefreshOSI()
 	; UpdateJSONfromUI()
-	Reload
+	; Reload
+
 return
 
 
@@ -448,12 +464,19 @@ return
 
 F2::
 {
-	toggleAppliction := !toggleAppliction
+	toggleAppliction := !toggleApplictionq
+}
+
+F1::
+{
+	LoadSettings()
+	UpdateUIFromJson()
 }
 
 F6::
 {
-	LoadSettings()
+	; LoadSettings()
+	; UpdateUIFromJson()
 }
 
 
@@ -464,7 +487,7 @@ IndexSkills(){
 	For key, skill in ListOfSkills{
 		indexCount++
 		If(indexCount => 20){
-			Exception("Max number of icons reached  (20)")
+			Exception("Max number of icons reached  (20!)")
 		}
 		else{
 			skill.index := indexCount
@@ -481,7 +504,7 @@ ObjFullyClone(obj)
 			nobj[k] := A_ThisFunc.(v)
 	return nobj
 }
-;================================================================
+;=============================q===================================
 
 FontHandler(_keyword){
 	Switch _keyword, off{
