@@ -43,6 +43,8 @@ MouseGetPos, mousex, mousey
 global ListOfSkills := {}
 global fieldsToSave := ["icon", "durationTextbox", "key", "checkbox", "xposbox", "yposbox"]
 global fieldsToSaveCount := fieldsToSave.Count()
+global fieldsToUpdate := ["durationTextbox", "key", "checkbox", "xposbox", "yposbox"]
+global fieldsToUpdateCount := fieldsToUpdate.Count()
 global guiElements := ["durationTextbox", "enableText", "keyText", "key", "checkbox", "xposText", "xposbox", "yposText", "yposbox"]
 global guiElementsCount := guiElements.Count()
 
@@ -102,10 +104,10 @@ DrawImage(_name, _imageLocation, _position, _Display := False){
 	result_img_location = %A_WorkingDir%\resources\%_imageLocation%
 
 	if(_Display == False){
-		id := "picture" _name
+		id := "icon" _name
 		GUIImage("Add", posi, size, id, result_img_location)
 	} else {
-		id := "pictureOSI" _name
+		id := "iconOSI" _name
 		id2 := %id%
 		GUIImage("2:Add", posi, size, id, result_img_location)
 		GuiControl, 2:Hide, %id%
@@ -218,6 +220,7 @@ LoadSettings(){
 				IniRead, result, .\settings.ini, %section%, %elementType%
 				ListOfSkills[index][elementType] := result
 			}
+
 			; element offset : (
 			ListOfSkills[index]["elementOffset"].y := 70*(index-1)
 		}
@@ -261,14 +264,19 @@ UpdateJSONfromUI(){
 ;================================================================
 ;;update the UI fields from the internal object
 UpdateUIFromJson(){
+	; result_img_location := ""  
+	; result_img_location = %A_WorkingDir%\resources\%_imageLocation%
+
+
 	For key, skill in ListOfSkills{
 		elementSuffix := "_Element" A_Index
-		loop, %fieldsToSaveCount% {
-			elementType := fieldsToSave[A_Index]
+		loop, %fieldsToUpdateCount% {
+			elementType := fieldsToUpdate[A_Index]
 			element := elementType elementSuffix
-			JSONdata := skill[elementType]
-			
 			%element% := JSONdata
+			
+			JSONdata := skill[elementType]
+
 			GuiControl,, %element%, %JSONdata% 
 		}
 	}
@@ -295,7 +303,7 @@ RefreshOSI(){
 		GUIyposbox := skill.yposbox
 
 		posi := "x" GUIxposbox " y" GUIyposbox " w64 h64"
-		imgName := "pictureOSI" elementGroup
+		imgName := "iconOSI" elementGroup
 		GuiControl, 2:move, %imgName%, %posi%
 	}
 }
@@ -376,8 +384,8 @@ RenderImage9(_arg){
 Control(_i){
 	this_skill := ListOfSkills[_i]
 	this_skill.TimeAtLastHotkeyPress := A_TickCount
-	variableName := "pictureOSI" "Element" _i
-	OnscreenImage := "pictureOSI_Element"_i
+	variableName := "iconOSI" "Element" _i
+	OnscreenImage := "iconOSI_Element"_i
 
 	this_skill.enable := true
 	GuiControl, 2:Show, %OnscreenImage%
@@ -400,7 +408,7 @@ TimerFunction(_skill){
 	ToolTip % Seconds, %positionx%, %positiony%, %_id%
 	If( Elapsed >= time ){
 		this_skill.enable := true
-		GuiControl, 2:Hide, pictureOSI_Element%_id%
+		GuiControl, 2:Hide, iconOSI_Element%_id%
 		SetTimer, %timerNumber%, Off
 		ToolTip,,,,%_id%
 	}
@@ -449,6 +457,7 @@ saveProgram:
 	SaveSettings()
 	UpdateUIFromJson()
 	; UpdateJSONfromUI()
+	Reload
 return
 
 
