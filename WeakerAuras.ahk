@@ -383,16 +383,18 @@ RenderImage9(_arg){
 }
 
 Control(_i){
-	this_skill := ListOfSkills[_i]
-	this_skill.TimeAtLastHotkeyPress := A_TickCount
-	variableName := "iconOSI" "Element" _i
-	OnscreenImage := "iconOSI_Element"_i
-
-	this_skill.enable := true
-	GuiControl, 2:Show, %OnscreenImage%
-	timerNumber := "Timer" _i
-	
-	SetTimer, %timerNumber%, 10
+	if(ListOfSkills[_i].Checkbox == true){
+		this_skill := ListOfSkills[_i]
+		this_skill.TimeAtLastHotkeyPress := A_TickCount
+		variableName := "iconOSI" "Element" _i
+		OnscreenImage := "iconOSI_Element"_i
+		
+		this_skill.enable := true
+		GuiControl, 2:Show, %OnscreenImage%
+		timerNumber := "Timer" _i
+		
+		SetTimer, %timerNumber%, 10
+	}
 }
 
 TimerFunction(_skill){
