@@ -88,10 +88,6 @@ CreateGUIElements(){
 		; skill.elementOffset += offset
 		DrawSkillElement(A_Index, theSkill)	
 	}
-	; todo add "add" and "remove" buttons
-
-
-
 	; Save and refresh button
 	pos :=  "y"(ListOfSkills.Count()*70)	
 	; Gui, Add, Button, x6 %pos% vaddSkillButton gaddSkillFunction , Add
@@ -454,7 +450,7 @@ return
 InitiliseUTimes(){
 
 }
-
+; todo add "add" and "remove" functionality
 addSkillFunction:
 {
 
@@ -464,9 +460,6 @@ removeSkillFunction:
 {
 
 }
-
-
-
 
 refreshProgram:
 {
