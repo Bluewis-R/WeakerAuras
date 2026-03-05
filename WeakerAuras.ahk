@@ -470,8 +470,9 @@ refreshProgram:
 
 saveProgram:
 	UpdateJSONfromUI()
-	SaveSettings()
 	UpdateUIFromJson()
+	SaveSettings()
+	; SaveSettings()
 	; setUpHotkeys()
 	; RefreshOSI()
 	; UpdateJSONfromUI()
