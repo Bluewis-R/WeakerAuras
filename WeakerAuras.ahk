@@ -142,34 +142,33 @@ DrawSkillElement(_index, _element){
 
 	FontHandler("title")
 	tempPos := positionAndSizeToString2(elementPositions.title)
-	Gui, Add, Text, %tempPos% , 	;title
+	Gui, Add, Text, %tempPos% , 
 	FontHandler("def")
+	;timer text and timer field
 	tempPos := positionAndSizeToString2(elementPositions.timerText)
 	Gui, Add, Text, %tempPos% , Timer	;timerText
 	tempPos := positionAndSizeToString2(elementPositions.durationTextbox)
-	Gui, Add, Edit, %tempPos% vdurationTextbox%elementGroup%,  ; durationTextbox
-	tempPos := positionAndSizeToString2(elementPositions.enableText)
-	Gui, Add, Text, %tempPos% , enabled ;enableText
-	
-	;some deluxe dogshit naming here, FIX
+	Gui, Add, Edit, %tempPos% vdurationTextbox%elementGroup%,
+	;key and key text
 	tempPos := positionAndSizeToString2(elementPositions.keyText)
-	Gui, Add, Text, %tempPos% , Key	;timerText6
+	Gui, Add, Text, %tempPos% , Key	
 	tempPos := positionAndSizeToString2(elementPositions.key)
-	Gui, Add, Edit, %tempPos% vkey%elementGroup%,  ; durationTextbox
-
-
-	; yposbox%elementGroup% := ""
-
+	Gui, Add, Edit, %tempPos% vkey%elementGroup%, 
+	;enable text and checkbox 
+	tempPos := positionAndSizeToString2(elementPositions.enableText)
+	Gui, Add, Text, %tempPos% , enabled 
 	tempPos := positionAndSizeToString2(elementPositions.checkbox)
-	Gui, Add, CheckBox, %tempPos% vcheckbox%elementGroup%  ;Checked ;checkbox
+	Gui, Add, CheckBox, %tempPos% vcheckbox%elementGroup%
+	;xposText and xposbox
 	tempPos := positionAndSizeToString2(elementPositions.xposText)
-	Gui, Add, Text, %tempPos%  , xpos	;xposText
+	Gui, Add, Text, %tempPos%  , xpos
 	tempPos := positionAndSizeToString2(elementPositions.xposbox)
-	Gui, Add, Edit, %tempPos% 0 vxposbox%elementGroup% , ; xposbox		gUpdated, gUpdateOnScreenIMG
+	Gui, Add, Edit, %tempPos% 0 vxposbox%elementGroup% , ;gUpdated, gUpdateOnScreenIMG
+	;yposText and yposbox 
 	tempPos := positionAndSizeToString2(elementPositions.yposText)
-	Gui, Add, Text, %tempPos% , 	;yposText
+	Gui, Add, Text, %tempPos% , 	
 	tempPos := positionAndSizeToString2(elementPositions.yposbox)
-	Gui, Add, Edit, %tempPos% 0 vyposbox%elementGroup% , ;yposbox 		gUpdated, gUpdateOnScreenIMG
+	Gui, Add, Edit, %tempPos% 0 vyposbox%elementGroup% , ;gUpdated, gUpdateOnScreenIMG
 
 	; onscreen image
 	defaultPos := {x: 0, y: _element.elementOffset.y}
