@@ -202,46 +202,42 @@ AddSkillConfigSection(skillIndex, yOffset) {
     global MainGUI, SkillControls
     
     sectionY := yOffset
-    
-    ; Skill header
-    MainGUI.Add("Text", "x10 y" sectionY " w380 h20", "Skill " skillIndex).SetFont("bold")
-    sectionY += 25
-    
-    ; Enabled checkbox
-    SkillControls["enabled" skillIndex] := MainGUI.Add("CheckBox", "x10 y" sectionY " w80 h20", "Enabled")
-    sectionY += 25
+
     
     ; Icon file
-    MainGUI.Add("Text", "x10 y" sectionY " w60 h20", "Icon:")
-    SkillControls["icon" skillIndex] := MainGUI.Add("Edit", "x80 y" sectionY " w200 h20")
+    SkillControls["icon" skillIndex] := MainGUI.Add("Edit", "x10 y" sectionY " w200 h20")
     SkillControls["icon" skillIndex].OnEvent("Change", UpdateIconPreview.Bind(skillIndex))
-    MainGUI.Add("Button", "x290 y" sectionY " w80 h20", "Browse").OnEvent("Click", BrowseIcon.Bind(skillIndex))
-    sectionY += 25
-    SkillIconPreviews[skillIndex] := MainGUI.Add("Pic", "x80 y" sectionY " w" CONFIG.IconSize " h" CONFIG.IconSize)
-    sectionY += CONFIG.IconSize + 10
+    MainGUI.Add("Button", "x220 y" sectionY " w80 h20", "Browse").OnEvent("Click", BrowseIcon.Bind(skillIndex))
+    sectionY += 35
+    SkillIconPreviews[skillIndex] := MainGUI.Add("Pic", "x10 y" sectionY " w" CONFIG.IconSize " h" CONFIG.IconSize)
+    ; sectionY += CONFIG.IconSize + 10
     
     ; Hotkey
-    MainGUI.Add("Text", "x10 y" sectionY " w60 h20", "Hotkey:")
-    SkillControls["hotkey" skillIndex] := MainGUI.Add("Edit", "x80 y" sectionY " w100 h20")
-    sectionY += 25
-    
-    ; Duration
-    MainGUI.Add("Text", "x10 y" sectionY " w60 h20", "Duration:")
-    SkillControls["duration" skillIndex] := MainGUI.Add("Edit", "x80 y" sectionY " w100 h20", "10.0")
-    MainGUI.Add("Text", "x190 y" sectionY " w40 h20", "sec")
-    sectionY += 25
+    MainGUI.Add("Text", "x90 y" sectionY " w60 h20", "Hotkey:")
+    SkillControls["hotkey" skillIndex] := MainGUI.Add("Edit", "x150 y" sectionY " w100 h20")
     
     ; Position X
-    MainGUI.Add("Text", "x10 y" sectionY " w60 h20", "Pos X:")
-    SkillControls["posX" skillIndex] := MainGUI.Add("Edit", "x80 y" sectionY " w100 h20", "100")
+    MainGUI.Add("Text", "x260 y" sectionY " w60 h20", "X:")
+    SkillControls["posX" skillIndex] := MainGUI.Add("Edit", "x290 y" sectionY " w50 h20", "100")
     sectionY += 25
+
+    ; Duration
+    MainGUI.Add("Text", "x90 y" sectionY " w60 h20", "Duration:")
+    SkillControls["duration" skillIndex] := MainGUI.Add("Edit", "x150 y" sectionY " w40 h20", "10.0")
+    MainGUI.Add("Text", "x200 y" sectionY+5 " w40 h20", "seconds")
     
     ; Position Y
-    MainGUI.Add("Text", "x10 y" sectionY " w60 h20", "Pos Y:")
-    SkillControls["posY" skillIndex] := MainGUI.Add("Edit", "x80 y" sectionY " w100 h20", "100")
-    MainGUI.Add("Button", "x190 y" sectionY " w80 h20", "Pick Pos").OnEvent("Click", PickPosition.Bind(skillIndex))
+    MainGUI.Add("Text", "x260 y" sectionY " w60 h20", "Y:")
+    SkillControls["posY" skillIndex] := MainGUI.Add("Edit", "x290 y" sectionY " w50 h23", "100")
+
+    ; Pick Pos button
+    MainGUI.Add("Button", "x350 y" sectionY " w80 h20", "Pick Pos").OnEvent("Click", PickPosition.Bind(skillIndex))
     sectionY += 25
-    
+        
+    ; Enabled checkbox
+    SkillControls["enabled" skillIndex] := MainGUI.Add("CheckBox", "x90 y" sectionY " w80 h20", "Enabled")
+    sectionY += 40
+
     return sectionY
 }
 
